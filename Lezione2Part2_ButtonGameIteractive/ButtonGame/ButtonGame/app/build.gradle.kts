@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.stationboard"
+    namespace = "com.example.buttongame"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.stationboard"
+        applicationId = "com.example.buttongame"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
@@ -59,19 +59,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    /*
-    implementation(
-        "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6" //ottengo warning to fix alt + enter replace new library... for livecycle-viewmodel-compose
-    )*/
-    //ottengo dunque:
-    implementation(
-        libs.lifecycle.viewmodel.compose
-    )
-
-    implementation (libs.volley) //per fare richieste http
-    implementation (libs.klaxon) //per fare parsing json
-
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

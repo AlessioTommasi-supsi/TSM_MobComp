@@ -9,6 +9,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.beust.klaxon.Klaxon
 
 //A ViewModel must inherit from ViewModel
 class AppViewModel(application: Application) : AndroidViewModel(application) {
@@ -38,13 +39,18 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         val requestQueue = Volley.newRequestQueue(context)
         //define a request.
         val request = StringRequest(
-            Request.Method.GET, "https://api.open-meteo.com/v1/forecast?latitude=47.37&\n" +
-                    "longitude=8.55&daily=temperature_2m_max,\n" +
-                    "temperature_2m_min&current_weather=true&timezone=Europe%2FZurich",
+            Request.Method.GET, "https://transport.opendata.ch/v1/stationboard?id=8503000", //API che ci da lista di treni in arrivo alla stazione di zurigo
                 { response ->
                     //find the response string in "response"
+                    /*
                     Log.i("Volley"
                         , response)
+                     */
+                    //parse the JSON
+                    val sbbtransport = Klaxon().parse<SBBTransport>(response)
+                    //name.value = sbbtransport?.stationboard?.count().toString() //devo mettere ? perche sbbtransport potrebbe essere null quando Klaxon non riesce a fare il parsing
+                    //oppure se son sicuro che non e null posso usare !! per esempio:
+                    name.value = sbbtransport!!.stationboard!!.count().toString()
                 },
                 Response.ErrorListener {
                     Log.e("Volley"

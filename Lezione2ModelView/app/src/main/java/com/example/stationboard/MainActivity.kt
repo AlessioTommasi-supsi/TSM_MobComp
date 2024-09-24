@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier,model: AppViewModel = viewModel()) {
+fun Greeting(name: String, modifier: Modifier,model: AppViewModel = viewModel() /*Dependency injection! con  viewModel() mi sto creando un oggetto anonimo di tipo AppViewModel e lo sto assegnando alla variabile model*/) {
     Column {
         Text(
             text = model.name.value,
