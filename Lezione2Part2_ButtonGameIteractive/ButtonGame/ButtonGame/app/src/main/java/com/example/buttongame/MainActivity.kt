@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.buttongame.model.AppViewModel
 import com.example.buttongame.ui.theme.ButtonGameTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ButtonGame( modifier: Modifier = Modifier) {
+fun ButtonGame( modifier: Modifier = Modifier , model: AppViewModel = viewModel()/*nota non e perche lo faccio qui e anche da altre parti ho istanza diversa!laistanza e unica! probabile Singleton!*/) {
     Column(modifier = modifier) {
         Text(
             text = "Button Game",
@@ -54,10 +57,10 @@ fun ButtonGame( modifier: Modifier = Modifier) {
         )
         
         Text(
-            text = "Result:",
+            text = "Result: ${model.result.value}",
             fontSize = 24.sp
         )
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = {model.startGame() }, modifier = Modifier.fillMaxWidth()) {
             Text("Start")
         }
         Column(modifier = modifier.weight(1f),
@@ -70,23 +73,27 @@ fun ButtonGame( modifier: Modifier = Modifier) {
             }
             Row(modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.spacedBy(1.dp)) {
-                GameButtonProf(1, modifier = Modifier.weight(1f))
-                GameButtonProf(2, modifier = Modifier.weight(1f))
-                GameButtonProf(3, modifier = Modifier.weight(1f))
+                GameButtonProf(4, modifier = Modifier.weight(1f))
+                GameButtonProf(5, modifier = Modifier.weight(1f))
+                GameButtonProf(6, modifier = Modifier.weight(1f))
             }
             Row(modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.spacedBy(1.dp)) {
-                GameButtonProf(1, modifier = Modifier.weight(1f))
-                GameButtonProf(2, modifier = Modifier.weight(1f))
-                GameButtonProf(3, modifier = Modifier.weight(1f))
+                GameButtonProf(7, modifier = Modifier.weight(1f))
+                GameButtonProf(8, modifier = Modifier.weight(1f))
+                GameButtonProf(9, modifier = Modifier.weight(1f))
             }
         }
     }
 }
 
 @Composable
-fun GameButtonProf(num : Int, modifier: Modifier) {
-    Button(onClick = {}, modifier = modifier.fillMaxHeight(), shape = RoundedCornerShape(12.dp)) {
+fun GameButtonProf(num : Int, modifier: Modifier , model: AppViewModel = viewModel()) {
+    Button(onClick = { model.gameButtonClicked(num) },
+        modifier = modifier.fillMaxHeight(),
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = model.backgroundColor[num]  )
+    ) {
         Text("$num", fontSize = 24.sp)
     }
 }
