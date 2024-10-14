@@ -77,6 +77,7 @@ class MainActivity : ComponentActivity() {
                                 model = model
                             )
                         }
+                        //mi definisco routes!
                         composable("detail/{index}",
                             arguments = listOf(navArgument("index") { type = NavType.IntType }))
                         { backStackEntry ->
