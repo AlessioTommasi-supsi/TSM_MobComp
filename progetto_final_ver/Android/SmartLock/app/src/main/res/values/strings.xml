@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SmartLock</string>
+    <string name="menu_item_1">Home</string>
+    <string name="menu_item_2">History</string>
+</resources>

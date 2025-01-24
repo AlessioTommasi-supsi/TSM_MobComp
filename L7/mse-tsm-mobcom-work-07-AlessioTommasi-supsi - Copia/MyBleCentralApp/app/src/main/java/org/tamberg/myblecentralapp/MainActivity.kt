@@ -294,6 +294,7 @@ class MyBleCentralViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
 
+
         @Deprecated("Deprecated in Java")
         override fun onCharacteristicChanged(
             gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic
