@@ -16,7 +16,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.smartlock.model.BluetoothDeviceData
 import java.util.*
-
+import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 
 class BTcontroller private constructor(application: Application) : AndroidViewModel(application) {
 
@@ -64,9 +65,6 @@ class BTcontroller private constructor(application: Application) : AndroidViewMo
         }
     }
 
-    private fun updateUiState() {
-        devices = devices
-    }
 
     private val receiver = object : BroadcastReceiver() {
         @SuppressLint("MissingPermission")
@@ -225,6 +223,7 @@ class BTcontroller private constructor(application: Application) : AndroidViewMo
 
     @SuppressLint("MissingPermission")
     fun readCharacteristic(characteristic: BluetoothGattCharacteristic?): String {
+        _receivedResponse.postValue("Reading characteristic: ${characteristic?.uuid}")
         return BTHelper.getInstance(getApplication()).readCh(characteristic, connectedGatt!!)
     }
 

@@ -17,6 +17,8 @@ import com.example.smartlock.R
 import com.example.smartlock.controller.BTcontroller
 import com.example.smartlock.controller.DeviceLogController
 import kotlinx.coroutines.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 
 @SuppressLint("MissingPermission")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,6 +27,9 @@ fun BTOpenCloseService(nav: NavHostController, deviceAddress: String) {
     var isLoading by remember { mutableStateOf(true) }
     val context = LocalContext.current
     val bluetoothViewModel = remember { BTcontroller.getInstance(context.applicationContext as Application) }
+
+    val data by bluetoothViewModel.receivedResponse.observeAsState("")
+
     var status by remember { mutableStateOf("Unknown") }
     var buttonTxt by remember { mutableStateOf(false) }
 
